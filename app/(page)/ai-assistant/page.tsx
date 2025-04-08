@@ -351,7 +351,7 @@ export default function AiAssistant() {
               </Breadcrumb>
               <span className="sm:hidden font-medium">Aqua Intelligence</span>
             </div>
-            <div className="flex w-full sm:w-auto justify-end sm:ml-auto sm:pr-4 flex items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
+            <div className="flex w-full sm:w-auto justify-end sm:ml-auto sm:pr-4 items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
               <Button
                 variant="outline"
                 size="sm"

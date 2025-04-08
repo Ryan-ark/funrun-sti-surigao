@@ -60,7 +60,7 @@ export default function Dashboard() {
             </Breadcrumb>
             <span className="sm:hidden font-medium">Dashboard</span>
           </div>
-          <div className="flex w-full sm:w-auto justify-between sm:ml-auto sm:pr-4 flex sm:items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
+          <div className="flex w-full sm:w-auto justify-between sm:ml-auto sm:pr-4 sm:items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
             <div className="flex gap-2">
               <Button
                 variant="outline"
