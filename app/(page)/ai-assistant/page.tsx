@@ -50,8 +50,8 @@ import {
   getWaterQualityPredictions,
   getFeedingOptimizationTips,
   ForecastData
-} from '../lib/groqService';
-import { getSensorData, subscribeToSensorData, SensorData } from '../lib/sensorService';
+} from '../../lib/groqService';
+import { getSensorData, subscribeToSensorData, SensorData } from '../../lib/sensorService';
 
 interface FeedingTip {
   title: string;
