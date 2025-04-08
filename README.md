@@ -2,7 +2,13 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -13,6 +19,14 @@ pnpm dev
 # or
 bun dev
 ```
+
+For database management, you can run Prisma Studio:
+
+```bash
+npx prisma studio
+```
+
+> Note: If you encounter any errors, you may need to ask for the `.env` file which contains necessary environment variables.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
