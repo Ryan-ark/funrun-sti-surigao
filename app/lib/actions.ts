@@ -3,7 +3,16 @@ import { Role } from "@prisma/client";
 
 export async function authenticate(email: string, password: string) {
   try {
-    await nextAuthSignIn("credentials", { email, password });
+    const result = await nextAuthSignIn("credentials", { 
+      email, 
+      password,
+      redirect: false, // Prevent NextAuth from redirecting automatically
+    });
+    
+    if (result?.error) {
+      return { error: "Invalid credentials" };
+    }
+    
     return { success: true };
   } catch (error) {
     if (error instanceof Error) {

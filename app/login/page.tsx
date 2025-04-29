@@ -15,6 +15,7 @@ interface LoginFormData extends FormData {
 export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState<string | undefined>();
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -42,20 +43,24 @@ export default function LoginPage() {
 
   const processForm = async (data: LoginFormData) => {
     setError(undefined);
+    setIsLoading(true);
     
     try {
       const result = await authenticate(data.email, data.password);
       
       if (result?.error) {
         setError(result.error);
+        setIsLoading(false);
         return;
       }
       
-      router.push("/dashboard");
-      router.refresh();
+      console.log("Login successful, redirecting to dashboard");
+      // Force a hard navigation to the dashboard
+      window.location.href = "/dashboard";
     } catch (error) {
       console.error("Login error:", error);
       setError("An unexpected error occurred. Please try again.");
+      setIsLoading(false);
     }
   };
 
@@ -72,9 +77,10 @@ export default function LoginPage() {
         fields={loginFields}
         register={register}
         errors={errors}
-        submitLabel="Sign In"
+        submitLabel={isLoading ? "Signing in..." : "Sign In"}
         onSubmit={handleSubmit(processForm)}
         error={error}
+        isLoading={isLoading}
         footer={
           <p>
             Don&apos;t have an account?{" "}

@@ -23,6 +23,7 @@ export interface AuthFormProps<T extends FormData> {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   error?: string;
   footer?: React.ReactNode;
+  isLoading?: boolean;
 }
 
 export function AuthForm<T extends FormData>({
@@ -33,6 +34,7 @@ export function AuthForm<T extends FormData>({
   onSubmit,
   error,
   footer,
+  isLoading = false,
 }: AuthFormProps<T>) {
   return (
     <div className="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
@@ -55,6 +57,7 @@ export function AuthForm<T extends FormData>({
                 id={field.id}
                 {...register(field.name as Path<T>, { required: field.required })}
                 className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                disabled={isLoading}
               >
                 <option value="">Select an option</option>
                 {field.options?.map((option) => (
@@ -70,6 +73,7 @@ export function AuthForm<T extends FormData>({
                 placeholder={field.placeholder}
                 {...register(field.name as Path<T>, { required: field.required })}
                 className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                disabled={isLoading}
               />
             )}
             
@@ -83,7 +87,8 @@ export function AuthForm<T extends FormData>({
         
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200"
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={isLoading}
         >
           {submitLabel}
         </button>
