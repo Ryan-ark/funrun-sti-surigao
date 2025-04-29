@@ -3,7 +3,6 @@
 import { authenticate } from "@/app/lib/actions";
 import { AuthForm, FormData } from "@/components/ui/auth-form";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -13,7 +12,6 @@ interface LoginFormData extends FormData {
 }
 
 export default function LoginPage() {
-  const router = useRouter();
   const [error, setError] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
   const {
