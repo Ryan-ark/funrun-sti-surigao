@@ -34,6 +34,80 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Database Scripts
+
+This project includes utility scripts for seeding and viewing database data.
+
+### Running Seed Scripts
+
+Seed scripts are used to populate the database with initial data. Each script handles a specific entity:
+
+```bash
+# Seed users
+node scripts/seed/seed-users.js
+
+# Seed events
+node scripts/seed/seed-events.js
+
+# Seed event categories
+node scripts/seed/seed-event-categories.js
+
+# Seed event staff
+node scripts/seed/seed-event-staff.js
+
+# Seed marshal profiles
+node scripts/seed/seed-marshal-profiles.js
+
+# Seed participants
+node scripts/seed/seed-participants.js
+
+# Seed results
+node scripts/seed/seed-results.js
+
+# Seed runner profiles
+node scripts/seed/seed-runner-profiles.js
+```
+
+### Running View Scripts
+
+View scripts are used to display database content in a readable format:
+
+```bash
+# View users
+node scripts/view/view-users.js
+
+# View events
+node scripts/view/view-events.js
+
+# View events with categories
+node scripts/view/view-events-with-categories.js
+
+# View event staff
+node scripts/view/view-event-staff.js
+
+# View marshal profiles
+node scripts/view/view-marshal-profiles.js
+
+# View participants
+node scripts/view/view-participants.js
+
+# View results
+node scripts/view/view-results.js
+
+# View runner profiles
+node scripts/view/view-runner-profiles.js
+```
+
+### Testing All Scripts
+
+You can test all seed and view scripts at once using the test script:
+
+```bash
+node test-scripts.js
+```
+
+This will run all available scripts and provide a summary of successes and failures.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
