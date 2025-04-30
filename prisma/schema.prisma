@@ -14,6 +14,8 @@ model users {
   password          String
   phone_number      String?
   role              Role                 @default(Guest)
+  resetToken        String?              // Added for password reset
+  resetTokenExpiry  DateTime?            // Added for password reset
   created_at        DateTime             @default(now())
   updated_at        DateTime             @updatedAt
   runner_profile    runner_profile?

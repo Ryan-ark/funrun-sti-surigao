@@ -10,7 +10,9 @@ export async function middleware(req: NextRequest) {
     pathname === "/" ||
     pathname === "/login" ||
     pathname === "/register" ||
-    pathname.startsWith("/api") || 
+    pathname === "/forgot-password" ||
+    pathname === "/reset-password" ||
+    pathname.startsWith("/api/auth") || // All auth endpoints are public
     pathname.includes("_next") ||
     pathname.includes("favicon.ico") ||
     pathname.startsWith("/assets/") ||  // Allow access to assets directory
