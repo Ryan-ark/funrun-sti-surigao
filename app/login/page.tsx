@@ -1,102 +1,50 @@
 "use client";
 
-import { authenticate } from "@/app/lib/actions";
-import { AuthForm, FormData } from "@/components/ui/auth-form";
-import Link from "next/link";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
-
-interface LoginFormData extends FormData {
-  email: string;
-  password: string;
-}
+import { Activity } from "lucide-react"
+import { LoginForm } from "@/components/login-form"
+import Link from "next/link"
+import Image from "next/image"
 
 export default function LoginPage() {
-  const [error, setError] = useState<string | undefined>();
-  const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
-  const { update } = useSession();
-  
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormData>();
-
-  const loginFields = [
-    {
-      id: "email",
-      name: "email",
-      type: "email",
-      placeholder: "Enter your email",
-      required: true,
-      label: "Email",
-    },
-    {
-      id: "password",
-      name: "password",
-      type: "password",
-      placeholder: "Enter your password",
-      required: true,
-      label: "Password",
-    },
-  ];
-
-  const processForm = async (data: LoginFormData) => {
-    setError(undefined);
-    setIsLoading(true);
-    
-    try {
-      const result = await authenticate(data.email, data.password);
-      
-      if (result?.error) {
-        setError(result.error);
-        setIsLoading(false);
-        return;
-      }
-      
-      console.log("Login successful, redirecting to dashboard");
-      
-      // Update the session before navigating
-      await update();
-      
-      // Use Next.js router for navigation instead of window.location
-      router.push("/dashboard");
-    } catch (error) {
-      console.error("Login error:", error);
-      setError("An unexpected error occurred. Please try again.");
-      setIsLoading(false);
-    }
-  };
-
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold">Welcome Back</h1>
-        <p className="mt-2 text-gray-600">
-          Sign in to access your account
-        </p>
+    <div className="grid min-h-svh lg:grid-cols-2">
+      <div className="flex flex-col gap-4 p-6 md:p-10">
+        <div className="flex justify-center gap-2 md:justify-start">
+          <Link href="/" className="flex items-center gap-2 font-medium">
+            <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
+              <Activity className="size-4" />
+            </div>
+            STI Surigao Fun Run
+          </Link>
+        </div>
+        <div className="flex flex-1 items-center justify-center">
+          <div className="w-full max-w-xs">
+            <LoginForm />
+          </div>
+        </div>
       </div>
-      
-      <AuthForm<LoginFormData>
-        fields={loginFields}
-        register={register}
-        errors={errors}
-        submitLabel={isLoading ? "Signing in..." : "Sign In"}
-        onSubmit={handleSubmit(processForm)}
-        error={error}
-        isLoading={isLoading}
-        footer={
-          <p>
-            Don&apos;t have an account?{" "}
-            <Link href="/register" className="text-blue-600 hover:underline">
-              Register
-            </Link>
-          </p>
-        }
-      />
+      <div className="bg-primary/10 relative hidden lg:block">
+        <Image
+          src="/assets/login_page.jpg"
+          alt="Fun Run Event"
+          fill
+          className="object-cover"
+          priority
+          unoptimized
+          onError={(e) => {
+            // @ts-expect-error - type error with onError event
+            e.target.onerror = null;
+            // @ts-expect-error - type error with currentTarget.src
+            e.target.src = "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1975&q=80";
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent flex items-end p-10">
+          <div className="text-white">
+            <h2 className="text-2xl font-bold mb-2">Ready, Set, Go!</h2>
+            <p className="max-w-md">Join us for the STI Surigao Fun Run event. Login to register or manage your participation.</p>
+          </div>
+        </div>
+      </div>
     </div>
-  );
-} 
+  )
+}

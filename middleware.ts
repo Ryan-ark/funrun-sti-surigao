@@ -12,7 +12,11 @@ export async function middleware(req: NextRequest) {
     pathname === "/register" ||
     pathname.startsWith("/api") || 
     pathname.includes("_next") ||
-    pathname.includes("favicon.ico");
+    pathname.includes("favicon.ico") ||
+    pathname.startsWith("/assets/") ||  // Allow access to assets directory
+    pathname.endsWith(".jpg") ||        // Allow access to jpg files
+    pathname.endsWith(".png") ||        // Allow access to png files
+    pathname.endsWith(".svg");          // Allow access to svg files
 
   if (isPublicRoute) {
     return NextResponse.next();
@@ -56,5 +60,5 @@ export async function middleware(req: NextRequest) {
 
 // See https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|_next/data|assets|favicon.ico).*)"],
 }; 
