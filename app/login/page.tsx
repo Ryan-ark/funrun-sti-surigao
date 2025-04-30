@@ -5,6 +5,8 @@ import { AuthForm, FormData } from "@/components/ui/auth-form";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 interface LoginFormData extends FormData {
   email: string;
@@ -14,6 +16,9 @@ interface LoginFormData extends FormData {
 export default function LoginPage() {
   const [error, setError] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const { update } = useSession();
+  
   const {
     register,
     handleSubmit,
@@ -53,8 +58,12 @@ export default function LoginPage() {
       }
       
       console.log("Login successful, redirecting to dashboard");
-      // Force a hard navigation to the dashboard
-      window.location.href = "/dashboard";
+      
+      // Update the session before navigating
+      await update();
+      
+      // Use Next.js router for navigation instead of window.location
+      router.push("/dashboard");
     } catch (error) {
       console.error("Login error:", error);
       setError("An unexpected error occurred. Please try again.");

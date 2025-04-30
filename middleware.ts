@@ -4,23 +4,33 @@ import { NextRequest } from 'next/server';
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const token = await getToken({ req });
-  const isLoggedIn = !!token;
   
   // Public routes - no authentication needed
   const isPublicRoute =
     pathname === "/" ||
     pathname === "/login" ||
     pathname === "/register" ||
-    pathname.startsWith("/api");
+    pathname.startsWith("/api") || 
+    pathname.includes("_next") ||
+    pathname.includes("favicon.ico");
 
   if (isPublicRoute) {
     return NextResponse.next();
   }
+  
+  // Try to get the token with some configurability for reliability
+  const token = await getToken({ 
+    req,
+    secureCookie: process.env.NODE_ENV === "production",
+  });
+  
+  const isLoggedIn = !!token;
 
   // Check if user is logged in for protected routes
   if (!isLoggedIn) {
-    return NextResponse.redirect(new URL("/login", req.url));
+    // Redirect to login
+    const redirectUrl = new URL("/login", req.url);
+    return NextResponse.redirect(redirectUrl);
   }
 
   // Role-based access control
