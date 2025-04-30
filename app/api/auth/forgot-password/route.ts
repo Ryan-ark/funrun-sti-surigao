@@ -27,6 +27,27 @@ type UserWithResetToken = {
   resetTokenExpiry: Date;
 };
 
+// Function to get the base URL for the application
+function getBaseUrl() {
+  // For Vercel production environment
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  
+  // For Vercel preview deployments
+  if (process.env.VERCEL_DEPLOYMENT_URL) {
+    return `https://${process.env.VERCEL_DEPLOYMENT_URL}`;
+  }
+  
+  // For custom domains configured with NEXTAUTH_URL
+  if (process.env.NEXTAUTH_URL) {
+    return process.env.NEXTAUTH_URL;
+  }
+  
+  // Fallback for local development
+  return 'http://localhost:3000';
+}
+
 export async function POST(request: Request) {
   try {
     const { email } = await request.json();
@@ -67,8 +88,8 @@ export async function POST(request: Request) {
       throw updateError;
     }
 
-    // Create reset URL
-    const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+    // Create reset URL using the proper base URL
+    const baseUrl = getBaseUrl();
     const resetUrl = `${baseUrl}/reset-password?token=${resetToken}&email=${encodeURIComponent(email)}`;
 
     // Configure email
