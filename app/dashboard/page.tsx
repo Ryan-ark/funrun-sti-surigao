@@ -14,14 +14,12 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import { useTheme } from "../context/ThemeContext";
 
 export default function DashboardPage() {
   const { data: session } = useSession();
   const userRole = session?.user?.role;
   const [isMobile, setIsMobile] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const { theme } = useTheme();
   
   useEffect(() => {
     const checkIsMobile = () => {
@@ -65,7 +63,7 @@ export default function DashboardPage() {
           </Breadcrumb>
           <span className="sm:hidden font-medium">Dashboard</span>
         </div>
-        <div className="flex w-full sm:w-auto justify-between sm:ml-auto sm:pr-4 flex sm:items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
+        <div className="flex w-full sm:w-auto justify-between sm:ml-auto sm:pr-4 sm:items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
           <Button
             variant="outline"
             size="sm"

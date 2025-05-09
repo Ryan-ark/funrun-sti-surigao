@@ -4,12 +4,10 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useTheme } from "./context/ThemeContext";
 
 export default function HomePage() {
   const { status } = useSession();
   const router = useRouter();
-  const { theme } = useTheme();
 
   useEffect(() => {
     if (status === "authenticated") {

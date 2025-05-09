@@ -7,13 +7,12 @@ import { DatePicker } from "@/components/ui/date-picker";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Gender, Role, TshirtSize } from "@prisma/client";
+import { Role } from "@prisma/client";
 import { Zap, Flag } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useTheme } from "../context/ThemeContext";
 import Image from "next/image";
 
 interface RegisterFormData {
@@ -61,7 +60,6 @@ const steps: Record<Extract<Role, "Runner" | "Marshal">, StepType[]> = {
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { theme } = useTheme();
   const [error, setError] = useState<string | undefined>();
   const [selectedRole, setSelectedRole] = useState<Extract<Role, "Runner" | "Marshal">>("Runner");
   const [currentStep, setCurrentStep] = useState(0);
@@ -80,7 +78,7 @@ export default function RegisterPage() {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isValid },
+    formState: { errors },
     reset
   } = useForm<RegisterFormData>({
     mode: "onChange"

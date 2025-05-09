@@ -10,7 +10,6 @@ import { authenticate } from "@/app/lib/actions"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 import Link from "next/link"
-import { useTheme } from "@/app/context/ThemeContext"
 
 interface LoginFormData {
   email: string;
@@ -25,7 +24,6 @@ export function LoginForm({
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { update } = useSession();
-  const { theme } = useTheme();
   
   const {
     register,

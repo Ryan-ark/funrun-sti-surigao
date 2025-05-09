@@ -4,11 +4,8 @@ import { Activity } from "lucide-react"
 import { LoginForm } from "@/components/login-form"
 import Link from "next/link"
 import Image from "next/image"
-import { useTheme } from "../context/ThemeContext";
 
 export default function LoginPage() {
-  const { theme } = useTheme();
-  
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10 bg-background">
