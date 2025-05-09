@@ -43,6 +43,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useTheme } from "@/app/context/ThemeContext";
 import {
   Message,
   getChatCompletion,
@@ -120,6 +121,7 @@ const formatMessageContent = (content: string) => {
 };
 
 export default function AiAssistant() {
+  const { theme } = useTheme();
   const [isMobile, setIsMobile] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userInput, setUserInput] = useState('');
@@ -371,7 +373,7 @@ export default function AiAssistant() {
                 <Card className="h-full">
                   <CardHeader className="p-3 sm:p-6">
                     <div className="flex items-center gap-2 mb-2">
-                      <Sparkles className="h-5 w-5 text-indigo-500" />
+                      <Sparkles className="h-5 w-5 text-accent" />
                       <CardTitle className="text-base sm:text-lg">AI Assistant</CardTitle>
                     </div>
                     <CardDescription>
@@ -394,12 +396,12 @@ export default function AiAssistant() {
                                 {message.role === 'assistant' ? (
                                   <>
                                     <AvatarImage src="/avatars/ai-assistant.png" />
-                                    <AvatarFallback className="bg-indigo-100 text-indigo-600">AI</AvatarFallback>
+                                    <AvatarFallback className="bg-accent/10 text-accent">AI</AvatarFallback>
                                   </>
                                 ) : (
                                   <>
                                     <AvatarImage src="/avatars/admin.jpg" />
-                                    <AvatarFallback className="bg-blue-100 text-blue-600">U</AvatarFallback>
+                                    <AvatarFallback className="bg-accent/10 text-accent">U</AvatarFallback>
                                   </>
                                 )}
                               </Avatar>
@@ -407,7 +409,7 @@ export default function AiAssistant() {
                                 className={`rounded-lg px-3 py-2 text-sm ${
                                   message.role === 'assistant'
                                     ? 'bg-secondary text-secondary-foreground'
-                                    : 'bg-primary text-primary-foreground'
+                                    : 'bg-accent text-accent-foreground'
                                 }`}
                               >
                                 {message.role === 'assistant' ? (
@@ -424,7 +426,7 @@ export default function AiAssistant() {
                             <div className="flex flex-row items-start gap-2 max-w-[80%]">
                               <Avatar className="h-8 w-8">
                                 <AvatarImage src="/avatars/ai-assistant.png" />
-                                <AvatarFallback className="bg-indigo-100 text-indigo-600">AI</AvatarFallback>
+                                <AvatarFallback className="bg-accent/10 text-accent">AI</AvatarFallback>
                               </Avatar>
                               <div className="rounded-lg px-3 py-2 text-sm bg-secondary text-secondary-foreground">
                                 <div className="flex space-x-1">
@@ -507,7 +509,7 @@ export default function AiAssistant() {
                                     type="monotone"
                                     dataKey="value"
                                     name="Weight (g)"
-                                    stroke="#8884d8"
+                                    stroke={theme.accent}
                                     strokeWidth={2}
                                     dot={{ r: 4 }}
                                     activeDot={{ r: 6 }}
@@ -522,12 +524,12 @@ export default function AiAssistant() {
                                   <div key={index} className="border rounded-lg p-3">
                                     <div className="flex justify-between items-center mb-1">
                                       <div className="font-medium text-sm">{item.date}</div>
-                                      <div className="text-sm bg-primary/10 rounded px-2 py-0.5">
+                                      <div className="text-sm bg-accent/10 text-accent rounded px-2 py-0.5">
                                         {item.value.toFixed(2)}g
                                       </div>
                                     </div>
                                     <div className="text-xs text-muted-foreground mb-1">{item.prediction}</div>
-                                    <div className="flex items-center gap-1 text-xs text-primary">
+                                    <div className="flex items-center gap-1 text-xs text-accent">
                                       <ChevronRight className="h-3 w-3" />
                                       <span>{item.suggestion}</span>
                                     </div>
@@ -572,7 +574,7 @@ export default function AiAssistant() {
                                   <Bar 
                                     dataKey="value" 
                                     name="pH Level" 
-                                    fill="#82ca9d" 
+                                    fill={theme.accent}
                                     radius={[4, 4, 0, 0]}
                                   />
                                 </BarChart>
@@ -585,12 +587,12 @@ export default function AiAssistant() {
                                   <div key={index} className="border rounded-lg p-3">
                                     <div className="flex justify-between items-center mb-1">
                                       <div className="font-medium text-sm">{item.date}</div>
-                                      <div className="text-sm bg-emerald-500/10 text-emerald-700 rounded px-2 py-0.5">
+                                      <div className="text-sm bg-accent/10 text-accent rounded px-2 py-0.5">
                                         pH {item.value.toFixed(1)}
                                       </div>
                                     </div>
                                     <div className="text-xs text-muted-foreground mb-1">{item.prediction}</div>
-                                    <div className="flex items-center gap-1 text-xs text-emerald-600">
+                                    <div className="flex items-center gap-1 text-xs text-accent">
                                       <ChevronRight className="h-3 w-3" />
                                       <span>{item.suggestion}</span>
                                     </div>

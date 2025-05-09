@@ -13,6 +13,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useTheme } from "../context/ThemeContext";
+import Image from "next/image";
 
 interface RegisterFormData {
   // Common fields
@@ -59,6 +61,7 @@ const steps: Record<Extract<Role, "Runner" | "Marshal">, StepType[]> = {
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { theme } = useTheme();
   const [error, setError] = useState<string | undefined>();
   const [selectedRole, setSelectedRole] = useState<Extract<Role, "Runner" | "Marshal">>("Runner");
   const [currentStep, setCurrentStep] = useState(0);
@@ -363,23 +366,23 @@ export default function RegisterPage() {
         {roleSteps.map((step: StepType, index: number) => {
           const isCompleted = index < currentStep;
           const isActive = index === currentStep;
-          const isUpcoming = index > currentStep;
           
           return (
-            <div key={index} className="flex flex-col items-center relative flex-1 px-1">
-              {/* Line connector FROM previous step */}
+            <div key={index} className="flex flex-col items-center relative flex-1">
+              {/* Line connector */}
               {index > 0 && (
-                <div className={`absolute right-1/2 top-4 h-[3px] w-full z-0 ${isCompleted || isActive ? 'bg-accent' : 'bg-muted'}`}>
-                  {/* Fill effect for active step */}
-                  {isActive && <div className="absolute right-0 top-0 h-[3px] w-1/2 bg-muted z-10"></div>}
-                </div>
-              )}
-              
-              {/* Line connector TO next step */}
-              {index < roleSteps.length - 1 && (
-                <div className={`absolute left-1/2 top-4 h-[3px] w-full z-0 ${isCompleted ? 'bg-accent' : 'bg-muted'}`}>
-                  {/* Fill effect for active step */}
-                  {isActive && <div className="absolute left-0 top-0 h-[3px] w-1/2 bg-muted z-10"></div>}
+                <div 
+                  className="absolute left-0 right-0 top-4 h-[3px] -translate-x-1/2 w-[calc(100%+1rem)]"
+                >
+                  {/* Background line */}
+                  <div className="absolute inset-0 bg-muted" />
+                  
+                  {/* Progress line */}
+                  <div 
+                    className={`absolute inset-0 bg-accent transition-all duration-300 ${
+                      isCompleted ? 'w-full' : isActive ? 'w-1/2' : 'w-0'
+                    }`}
+                  />
                 </div>
               )}
 
@@ -394,7 +397,9 @@ export default function RegisterPage() {
                 }`}
               >
                 {isCompleted ? (
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
                 ) : (
                   index + 1
                 )}
@@ -407,119 +412,153 @@ export default function RegisterPage() {
                 {step.name.split(' ')[0]}
               </span>
             </div>
-          )}
-        )}
+          );
+        })}
       </div>
     );
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-background">
-      <div className="mb-8 text-center">
-        <div className="flex justify-center mb-4 h-16 relative">
-          <div 
-            className={`transition-all duration-500 ease-out absolute ${
-              iconVisible 
-                ? 'opacity-100 transform translate-y-0' 
-                : 'opacity-0 transform translate-y-10'
+    <div className="grid min-h-screen lg:grid-cols-2">
+      {/* Form Section */}
+      <div className="flex min-h-screen flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-background">
+        <div className="mb-8 text-center">
+          <div className="flex justify-center mb-4 h-16 relative">
+            <div 
+              className={`transition-all duration-500 ease-out absolute ${
+                iconVisible 
+                  ? 'opacity-100 transform translate-y-0' 
+                  : 'opacity-0 transform translate-y-10'
+              }`}
+            >
+              {selectedRole === "Runner" ? (
+                <Zap className="h-16 w-16 text-accent" />
+              ) : (
+                <Flag className="h-16 w-16 text-accent" />
+              )}
+            </div>
+          </div>
+          <h1 className="text-3xl font-bold text-foreground">Create a {selectedRole} Account</h1>
+          <p className="mt-2 text-foreground-secondary">
+            Join us and participate in exciting fun run events
+          </p>
+        </div>
+
+        <div className="flex justify-center space-x-4 mb-6 w-full max-w-md">
+          <button
+            type="button"
+            onClick={() => handleRoleChange("Runner")}
+            className={`flex-1 cursor-pointer py-4 px-6 rounded-md transition-all duration-300 text-lg font-medium shadow-md hover:shadow-lg border-2 ${
+              selectedRole === "Runner"
+                ? "bg-accent text-accent-foreground border-accent hover:bg-accent/90"
+                : "bg-background text-foreground hover:bg-muted/10 border-muted hover:border-accent/50"
             }`}
           >
-            {selectedRole === "Runner" ? (
-              <Zap className="h-16 w-16 text-accent" />
-            ) : (
-              <Flag className="h-16 w-16 text-accent" />
-            )}
-          </div>
+            <div className="flex items-center justify-center gap-2">
+              <Zap className="h-5 w-5" />
+              <span>Runner</span>
+            </div>
+          </button>
+          <button
+            type="button"
+            onClick={() => handleRoleChange("Marshal")}
+            className={`flex-1 cursor-pointer py-4 px-6 rounded-md transition-all duration-300 text-lg font-medium shadow-md hover:shadow-lg border-2 ${
+              selectedRole === "Marshal"
+                ? "bg-accent text-accent-foreground border-accent hover:bg-accent/90"
+                : "bg-background text-foreground hover:bg-muted/10 border-muted hover:border-accent/50"
+            }`}
+          >
+            <div className="flex items-center justify-center gap-2">
+              <Flag className="h-5 w-5" />
+              <span>Marshal</span>
+            </div>
+          </button>
         </div>
-        <h1 className="text-3xl font-bold text-foreground">Create a {selectedRole} Account</h1>
-        <p className="mt-2 text-foreground-secondary">
-          Join us and participate in exciting fun run events
-        </p>
-      </div>
-
-      <div className="flex justify-center space-x-4 mb-6 w-full max-w-md">
-        <button
-          type="button"
-          onClick={() => handleRoleChange("Runner")}
-          className={`flex-1 cursor-pointer py-4 px-6 rounded-md transition-all duration-300 text-lg font-medium shadow-md hover:shadow-lg border-2 ${
-            selectedRole === "Runner"
-              ? "bg-accent text-accent-foreground border-accent hover:bg-accent/90"
-              : "bg-muted text-foreground hover:bg-muted/80 border-muted hover:border-accent/50"
-          }`}
-        >
-          Runner
-        </button>
-        <button
-          type="button"
-          onClick={() => handleRoleChange("Marshal")}
-          className={`flex-1 cursor-pointer py-4 px-6 rounded-md transition-all duration-300 text-lg font-medium shadow-md hover:shadow-lg border-2 ${
-            selectedRole === "Marshal"
-              ? "bg-accent text-accent-foreground border-accent hover:bg-accent/90"
-              : "bg-muted text-foreground hover:bg-muted/80 border-muted hover:border-accent/50"
-          }`}
-        >
-          Marshal
-        </button>
-      </div>
-      
-      <Card className="w-full max-w-md">
-        <CardHeader className="pb-0">
-          {renderStepIndicators()}
-          <CardTitle className="text-center">{roleSteps[currentStep].name}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form id="registerForm" onSubmit={handleSubmit(processForm)}>
-            <div className="space-y-4">
-              {roleSteps[currentStep].fields.map(fieldName => 
-                renderField(fieldName)
-              )}
-              
-              {error && (
-                <div className="rounded-md bg-destructive/10 p-4 mt-4">
-                  <p className="text-sm text-destructive">{error}</p>
-                </div>
-              )}
-              
-              <div className="flex justify-between mt-6">
-                {currentStep > 0 && (
-                  <Button 
-                    type="button" 
-                    variant="outline" 
-                    onClick={prevStep}
-                  >
-                    Previous
-                  </Button>
+        
+        <Card className="w-full max-w-md">
+          <CardHeader className="pb-0">
+            {renderStepIndicators()}
+            <CardTitle className="text-center">{roleSteps[currentStep].name}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form id="registerForm" onSubmit={handleSubmit(processForm)}>
+              <div className="space-y-4">
+                {roleSteps[currentStep].fields.map(fieldName => 
+                  renderField(fieldName)
                 )}
                 
-                {currentStep < roleSteps.length - 1 ? (
-                  <Button 
-                    type="button" 
-                    onClick={nextStep}
-                    className="ml-auto"
-                  >
-                    Next
-                  </Button>
-                ) : (
-                  <Button 
-                    type="submit" 
-                    className="ml-auto"
-                  >
-                    Create Account
-                  </Button>
+                {error && (
+                  <div className="rounded-md bg-destructive/10 p-4 mt-4">
+                    <p className="text-sm text-destructive">{error}</p>
+                  </div>
                 )}
+                
+                <div className={`flex justify-between mt-6 ${currentStep > 0 ? 'gap-4' : ''}`}>
+                  {currentStep > 0 && (
+                    <Button 
+                      type="button" 
+                      variant="outline" 
+                      onClick={prevStep}
+                      className="flex-1 border-accent text-accent hover:bg-accent/10 hover:text-accent"
+                    >
+                      Previous
+                    </Button>
+                  )}
+                  
+                  {currentStep < roleSteps.length - 1 ? (
+                    <Button 
+                      type="button" 
+                      onClick={nextStep}
+                      className={`${currentStep === 0 ? 'w-full' : 'flex-1'} bg-accent text-accent-foreground hover:bg-accent/90`}
+                    >
+                      Next
+                    </Button>
+                  ) : (
+                    <Button 
+                      type="submit" 
+                      className={`${currentStep === 0 ? 'w-full' : 'flex-1'} bg-accent text-accent-foreground hover:bg-accent/90`}
+                    >
+                      Create Account
+                    </Button>
+                  )}
+                </div>
               </div>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-      
-      <div className="mt-4 text-center">
-        <p className="text-foreground-secondary">
-          Already have an account?{" "}
-          <Link href="/login" className="text-accent hover:underline">
-            Sign In
-          </Link>
-        </p>
+            </form>
+          </CardContent>
+        </Card>
+        
+        <div className="mt-4 text-center">
+          <p className="text-foreground-secondary">
+            Already have an account?{" "}
+            <Link href="/login" className="text-accent hover:underline">
+              Sign In
+            </Link>
+          </p>
+        </div>
+      </div>
+
+      {/* Image Section */}
+      <div className="bg-accent/10 relative hidden lg:block">
+        <Image
+          src="/assets/login_page.jpg"
+          alt="Fun Run Event"
+          fill
+          className="object-cover"
+          priority
+          unoptimized
+          onError={(e) => {
+            // @ts-expect-error - type error with onError event
+            e.target.onerror = null;
+            // @ts-expect-error - type error with currentTarget.src
+            e.target.src = "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1975&q=80";
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-accent/40 via-accent/20 to-transparent flex items-end p-10">
+          <div className="text-white">
+            <h2 className="text-2xl font-bold mb-2">Join Our Running Community</h2>
+            <p className="max-w-md">Create your account to participate in exciting fun run events and be part of our growing community.</p>
+          </div>
+        </div>
       </div>
     </div>
   );

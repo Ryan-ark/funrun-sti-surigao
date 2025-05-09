@@ -10,6 +10,7 @@ import { authenticate } from "@/app/lib/actions"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 import Link from "next/link"
+import { useTheme } from "@/app/context/ThemeContext"
 
 interface LoginFormData {
   email: string;
@@ -24,6 +25,7 @@ export function LoginForm({
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { update } = useSession();
+  const { theme } = useTheme();
   
   const {
     register,
@@ -65,21 +67,21 @@ export function LoginForm({
       onSubmit={handleSubmit(processForm)}
     >
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">Login to your account</h1>
+        <h1 className="text-2xl font-bold text-foreground">Login to your account</h1>
         <p className="text-muted-foreground text-sm text-balance">
           Enter your email below to login to your account
         </p>
       </div>
       
       {error && (
-        <div className="p-3 bg-red-100 text-red-700 rounded-md text-sm">
+        <div className="p-3 bg-destructive/10 text-destructive rounded-md text-sm">
           {error}
         </div>
       )}
       
       <div className="grid gap-6">
         <div className="grid gap-3">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email" className="text-foreground">Email</Label>
           <Input 
             id="email" 
             type="email" 
@@ -88,15 +90,15 @@ export function LoginForm({
             disabled={isLoading}
           />
           {errors.email && (
-            <p className="text-red-500 text-xs mt-1">Email is required</p>
+            <p className="text-destructive text-xs mt-1">Email is required</p>
           )}
         </div>
         <div className="grid gap-3">
           <div className="flex items-center">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password" className="text-foreground">Password</Label>
             <Link
               href="#"
-              className="ml-auto text-sm underline-offset-4 hover:underline"
+              className="ml-auto text-sm text-accent hover:text-accent/90 underline-offset-4 hover:underline"
             >
               Forgot your password?
             </Link>
@@ -108,16 +110,20 @@ export function LoginForm({
             disabled={isLoading}
           />
           {errors.password && (
-            <p className="text-red-500 text-xs mt-1">Password is required</p>
+            <p className="text-destructive text-xs mt-1">Password is required</p>
           )}
         </div>
-        <Button type="submit" className="w-full" disabled={isLoading}>
+        <Button 
+          type="submit" 
+          className="w-full bg-accent text-accent-foreground hover:bg-accent/90" 
+          disabled={isLoading}
+        >
           {isLoading ? "Signing in..." : "Login"}
         </Button>
       </div>
-      <div className="text-center text-sm">
+      <div className="text-center text-sm text-foreground-secondary">
         Don&apos;t have an account?{" "}
-        <Link href="/register" className="underline underline-offset-4">
+        <Link href="/register" className="text-accent hover:text-accent/90 underline-offset-4 hover:underline">
           Register
         </Link>
       </div>

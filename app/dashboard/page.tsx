@@ -14,12 +14,14 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import { useTheme } from "../context/ThemeContext";
 
 export default function DashboardPage() {
   const { data: session } = useSession();
   const userRole = session?.user?.role;
   const [isMobile, setIsMobile] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const { theme } = useTheme();
   
   useEffect(() => {
     const checkIsMobile = () => {
@@ -77,68 +79,66 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      <div className="flex-1 space-y-4 p-2 sm:p-4 pt-4 sm:pt-6 overflow-x-hidden">
-        <div className="space-y-6">
-          <div className="bg-white shadow rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4">Welcome to Your Dashboard</h2>
-            <p className="text-gray-600">
-              You are logged in as <strong>{session?.user?.name}</strong> with role: <strong>{userRole}</strong>
-            </p>
-          </div>
-
-          {/* Role-specific content */}
-          {userRole === "Admin" && (
-            <div className="bg-white shadow rounded-lg p-6">
-              <h3 className="text-lg font-semibold mb-4">Admin Quick Actions</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-medium">Events</h4>
-                  <p className="text-sm text-gray-600">Manage all fun run events</p>
-                </div>
-                <div className="bg-green-50 p-4 rounded-lg">
-                  <h4 className="font-medium">Users</h4>
-                  <p className="text-sm text-gray-600">Manage registered users</p>
-                </div>
-                <div className="bg-purple-50 p-4 rounded-lg">
-                  <h4 className="font-medium">Categories</h4>
-                  <p className="text-sm text-gray-600">Manage event categories</p>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {userRole === "Runner" && (
-            <div className="bg-white shadow rounded-lg p-6">
-              <h3 className="text-lg font-semibold mb-4">Runner Dashboard</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-medium">My Events</h4>
-                  <p className="text-sm text-gray-600">View your registered events</p>
-                </div>
-                <div className="bg-green-50 p-4 rounded-lg">
-                  <h4 className="font-medium">Results</h4>
-                  <p className="text-sm text-gray-600">View your event results</p>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {userRole === "Marshal" && (
-            <div className="bg-white shadow rounded-lg p-6">
-              <h3 className="text-lg font-semibold mb-4">Marshal Dashboard</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-medium">Assigned Events</h4>
-                  <p className="text-sm text-gray-600">View events you&apos;re managing</p>
-                </div>
-                <div className="bg-green-50 p-4 rounded-lg">
-                  <h4 className="font-medium">Record Results</h4>
-                  <p className="text-sm text-gray-600">Record participant results</p>
-                </div>
-              </div>
-            </div>
-          )}
+      <div className="space-y-6 p-6">
+        <div className="bg-card shadow rounded-lg p-6">
+          <h2 className="text-xl font-semibold mb-4 text-foreground">Welcome to Your Dashboard</h2>
+          <p className="text-foreground-secondary">
+            You are logged in as <strong className="text-foreground">{session?.user?.name}</strong> with role: <strong className="text-foreground">{userRole}</strong>
+          </p>
         </div>
+
+        {/* Role-specific content */}
+        {userRole === "Admin" && (
+          <div className="bg-card shadow rounded-lg p-6">
+            <h3 className="text-lg font-semibold mb-4 text-foreground">Admin Quick Actions</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-accent/10 p-4 rounded-lg">
+                <h4 className="font-medium text-foreground">Events</h4>
+                <p className="text-sm text-foreground-secondary">Manage all fun run events</p>
+              </div>
+              <div className="bg-accent/10 p-4 rounded-lg">
+                <h4 className="font-medium text-foreground">Users</h4>
+                <p className="text-sm text-foreground-secondary">Manage registered users</p>
+              </div>
+              <div className="bg-accent/10 p-4 rounded-lg">
+                <h4 className="font-medium text-foreground">Categories</h4>
+                <p className="text-sm text-foreground-secondary">Manage event categories</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {userRole === "Runner" && (
+          <div className="bg-card shadow rounded-lg p-6">
+            <h3 className="text-lg font-semibold mb-4 text-foreground">Runner Dashboard</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-accent/10 p-4 rounded-lg">
+                <h4 className="font-medium text-foreground">My Events</h4>
+                <p className="text-sm text-foreground-secondary">View your registered events</p>
+              </div>
+              <div className="bg-accent/10 p-4 rounded-lg">
+                <h4 className="font-medium text-foreground">Results</h4>
+                <p className="text-sm text-foreground-secondary">View your event results</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {userRole === "Marshal" && (
+          <div className="bg-card shadow rounded-lg p-6">
+            <h3 className="text-lg font-semibold mb-4 text-foreground">Marshal Dashboard</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-accent/10 p-4 rounded-lg">
+                <h4 className="font-medium text-foreground">Assigned Events</h4>
+                <p className="text-sm text-foreground-secondary">View events you&apos;re managing</p>
+              </div>
+              <div className="bg-accent/10 p-4 rounded-lg">
+                <h4 className="font-medium text-foreground">Record Results</h4>
+                <p className="text-sm text-foreground-secondary">Record participant results</p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
