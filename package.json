@@ -8,7 +8,7 @@
     "start": "next start -p $PORT",
     "lint": "next lint",
     "postinstall": "prisma generate",
-    "vercel-build": "rm -rf node_modules/.cache && npm install --legacy-peer-deps && npm run build"
+    "vercel-build": "npm install typescript@5 @types/react@18.2.0 @types/react-dom@18.2.0 --legacy-peer-deps && npm run build"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.9.0",
@@ -27,6 +27,9 @@
     "@radix-ui/react-toast": "^1.2.6",
     "@radix-ui/react-tooltip": "^1.1.8",
     "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
     "autoprefixer": "^10.4.16",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
@@ -49,16 +52,13 @@
     "recharts": "^2.15.1",
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^3.4.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@types/node": "^20",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
     "eslint": "^9",
-    "eslint-config-next": "15.2.3",
-    "typescript": "^5"
+    "eslint-config-next": "15.2.3"
   },
   "resolutions": {
     "date-fns": "^3.6.0",
