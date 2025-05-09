@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "prisma generate && next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "lint": "next lint",
     "postinstall": "prisma generate"
   },
@@ -30,7 +30,7 @@
     "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "date-fns": "^4.1.0",
+    "date-fns": "^3.6.0",
     "firebase": "^11.4.0",
     "groq-sdk": "^0.19.0",
     "lucide-react": "^0.482.0",
@@ -57,5 +57,11 @@
     "eslint-config-next": "15.2.3",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "resolutions": {
+    "date-fns": "^3.6.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
