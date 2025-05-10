@@ -6,62 +6,60 @@
   :root {
     --radius: 0.625rem;
     
-    /* White background */
-    --background: oklch(1 0 0);
-    
-    /* Powder black text (slightly softer than pure black) */
-    --foreground: oklch(0.15 0.01 0);
-    --foreground-secondary: oklch(0.3 0.01 0);
+    /* Base colors */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
     
     /* Card colors */
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.15 0.01 0);
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
     
     /* Popover colors */
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.15 0.01 0);
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
     
-    /* Primary is now powder black */
-    --primary: oklch(0.15 0.01 0);
-    --primary-foreground: oklch(0.98 0 0);
+    /* Primary colors */
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
     
-    /* Secondary colors (light gray) */
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.2 0.01 0);
+    /* Secondary colors */
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
     
     /* Muted colors */
-    --muted: oklch(0.95 0 0);
-    --muted-foreground: oklch(0.55 0.01 0);
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
     
-    /* Updated yellow accent color #f1c40f */
-    --accent: oklch(0.84 0.169 91.77);
-    --accent-foreground: oklch(0.15 0.01 0);
+    /* Accent colors - Set to yellow */
+    --accent: 49 93% 55%;
+    --accent-foreground: 222.2 47.4% 11.2%;
     
-    /* Destructive colors (red) */
-    --destructive: oklch(0.577 0.245 27.325);
-    --destructive-foreground: oklch(0.98 0 0);
+    /* Destructive colors */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
     
     /* Border and input colors */
-    --border: oklch(0.9 0 0);
-    --input: oklch(0.9 0 0);
-    --ring: #f1c40f; /* Same as accent */
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
     
     /* Chart colors */
-    --chart-1: #f1c40f; /* Yellow (same as accent) */
+    --chart-1: #f7d620; /* Yellow (same as sidebar) */
     --chart-2: oklch(0.6 0.118 184.704);
     --chart-3: oklch(0.398 0.07 227.392);
     --chart-4: oklch(0.828 0.189 84.429);
     --chart-5: oklch(0.769 0.188 70.08);
     
     /* Sidebar colors - now using yellow */
-    --sidebar: #f1c40f;
+    --sidebar: 49 93% 55%;
+    --sidebar-hex: #f7d620;
     --sidebar-foreground: oklch(0.15 0.01 0);
     --sidebar-primary: oklch(0.15 0.01 0);
     --sidebar-primary-foreground: oklch(0.98 0 0);
     --sidebar-accent: #f9d342; /* Lighter yellow */
     --sidebar-accent-foreground: oklch(0.15 0.01 0);
     --sidebar-border: oklch(0.9 0 0);
-    --sidebar-ring: #f1c40f;
+    --sidebar-ring: #f7d620;
 
     /* Font variables */
     --font-sans: var(--font-geist-sans);
@@ -69,52 +67,52 @@
   }
 
   .dark {
-    --background: oklch(0.15 0.01 0);
-    --foreground: oklch(0.98 0 0);
-    --foreground-secondary: oklch(0.85 0.01 0);
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
     
-    --card: oklch(0.2 0.01 0);
-    --card-foreground: oklch(0.98 0 0);
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
     
-    --popover: oklch(0.2 0.01 0);
-    --popover-foreground: oklch(0.98 0 0);
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
     
-    --primary: oklch(0.9 0 0);
-    --primary-foreground: oklch(0.2 0.01 0);
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
     
-    --secondary: oklch(0.25 0.01 0);
-    --secondary-foreground: oklch(0.98 0 0);
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
     
-    --muted: oklch(0.25 0.01 0);
-    --muted-foreground: oklch(0.7 0.01 0);
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
     
-    /* Updated yellow in dark mode */
-    --accent: #f1c40f;
-    --accent-foreground: oklch(0.15 0.01 0);
+    /* Accent colors - Set to yellow */
+    --accent: 49 93% 55%;
+    --accent-foreground: 210 40% 98%;
     
-    --destructive: oklch(0.704 0.191 22.216);
-    --destructive-foreground: oklch(0.98 0 0);
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
     
-    --border: oklch(1 0 0 / 15%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: #f1c40f; /* Yellow */
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
     
     /* Chart colors */
-    --chart-1: #f1c40f; /* Yellow */
+    --chart-1: #f7d620; /* Yellow */
     --chart-2: oklch(0.696 0.17 162.48);
     --chart-3: oklch(0.769 0.188 70.08);
     --chart-4: oklch(0.627 0.265 303.9);
     --chart-5: oklch(0.645 0.246 16.439);
     
     /* Sidebar colors */
-    --sidebar: #f1c40f; /* Yellow */
+    --sidebar: 49 93% 55%;
+    --sidebar-hex: #f7d620;
     --sidebar-foreground: oklch(0.15 0.01 0);
-    --sidebar-primary: #f1c40f;
+    --sidebar-primary: #f7d620;
     --sidebar-primary-foreground: oklch(0.15 0.01 0);
     --sidebar-accent: #f9d342; /* Lighter yellow */
     --sidebar-accent-foreground: oklch(0.15 0.01 0);
     --sidebar-border: oklch(1 0 0 / 15%);
-    --sidebar-ring: #f1c40f;
+    --sidebar-ring: #f7d620;
   }
 
   * {
